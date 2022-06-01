@@ -2,7 +2,7 @@ import * as C from "./styles";
 import { useState, useEffect } from "react";
 import { FaFileAlt } from "react-icons/fa";
 import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
+
 // import parse from "html-react-parser";
 
 const RichTextEditor = dynamic(import("@mantine/rte"), {

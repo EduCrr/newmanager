@@ -22,20 +22,11 @@ const Adicionar = () => {
       setImgFile();
     }
   };
-  const variants = {
-    hidden: { opacity: 0, x: -200, y: 0 },
-    enter: { opacity: 1, x: 0, y: 0 },
-    exit: { opacity: 0, x: 0, y: -100 },
-  };
+
   return (
     <Default>
       <C.Content>
-        <motion.div
-          variants={variants}
-          initial="hidden"
-          animate="enter"
-          exit="exit"
-        >
+        <motion.div initial="hidden" animate="enter" exit="exit">
           <form className="globalForm">
             <input placeholder="Title" />
             <select>
