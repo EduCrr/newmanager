@@ -3,9 +3,13 @@ import Image from "next/image";
 import * as C from "../styles/Site/index";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import blogApi from "./api/blogApi";
+import { useState, useEffect } from "react";
 
-export default function Home() {
+export default function Home({ posts, categories }) {
   const easing = [0.6, -0.05, 0.01, 0.99];
+  const path = posts.path;
+  const [postList, setPostList] = useState(posts.posts);
 
   const fadeInUp = {
     initial: {
@@ -38,49 +42,35 @@ export default function Home() {
   };
   return (
     <C.Content>
-      <motion.div
-        variants={fadeInUp}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="item"
-      >
-        <Link scroll={false} href="/teste">
-          <a>
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1609942571926-f3fe26feab26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-            />
-            <h3>Title</h3>
-          </a>
-        </Link>
-      </motion.div>
-      <motion.div
-        variants={fadeInUp}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="item"
-      >
-        <img
-          alt=""
-          src="https://images.unsplash.com/photo-1609942571926-f3fe26feab26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-        />
-        <h3>Title</h3>
-      </motion.div>
-      <motion.div
-        variants={fadeInUp}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="item"
-      >
-        <img
-          alt=""
-          src="https://images.unsplash.com/photo-1609942571926-f3fe26feab26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-        />
-        <h3>Title</h3>
-      </motion.div>
+      {postList.map((item, k) => (
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="item"
+          key={k}
+        >
+          <Link scroll={false} href={`/post/${item.id}`}>
+            <a>
+              <img alt="" src={`${path}/${item.photos[0].url}`} />
+              <h3>{item.title}</h3>
+            </a>
+          </Link>
+        </motion.div>
+      ))}
     </C.Content>
   );
 }
+
+export const getStaticProps = async () => {
+  const posts = await blogApi.getPosts();
+  const { categories } = await blogApi.getCategories();
+  return {
+    props: {
+      posts,
+      categories,
+    },
+    revalidate: 300, //quando passa 2 horas e tem novo post ele faz a requesição
+  };
+};

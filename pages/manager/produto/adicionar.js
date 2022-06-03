@@ -1,9 +1,10 @@
 import { Default } from "../../../components/Manager/Default";
 import * as C from "../../../components/Manager/Content/styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaFileAlt } from "react-icons/fa";
 import "quill/dist/quill.snow.css";
 import { motion } from "framer-motion";
+import blogApi from "../../api/blogApi";
 import dynamic from "next/dynamic";
 const RichTextEditor = dynamic(import("@mantine/rte"), {
   ssr: false,
@@ -12,7 +13,10 @@ const RichTextEditor = dynamic(import("@mantine/rte"), {
 
 const Adicionar = () => {
   const [imgFile, setImgFile] = useState();
-  const [value, setValue] = useState();
+  const [content, setContent] = useState();
+  const [category, setCategory] = useState("1");
+  const [title, setTitle] = useState("");
+  let fotoField = useRef();
 
   const onImageChange = (e) => {
     const [file] = e.target.files;
@@ -23,20 +27,47 @@ const Adicionar = () => {
     }
   };
 
+  const handleForm = async (e) => {
+    e.preventDefault();
+    const json = await blogApi.addPost(title, content, category, fotoField);
+    if (json.error === "") {
+      alert("cadastrado com sucesso!");
+      return;
+    } else {
+      alert("erro!");
+      return;
+    }
+  };
+
+  const handleImageUpload = async (file) => {
+    const json = await blogApi.addText(file);
+    const reader = new FileReader();
+
+    reader.readAsDataURL(json.location);
+  };
+
   return (
     <Default>
       <C.Content>
         <motion.div initial="hidden" animate="enter" exit="exit">
-          <form className="globalForm">
-            <input placeholder="Title" />
-            <select>
-              <option selected disabled>
-                Selecione uma categoria
-              </option>
-              <option>teste</option>
-              <option>teste</option>
+          <form className="globalForm" onSubmit={handleForm}>
+            <input
+              placeholder="title"
+              required
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="1">Jogos</option>
+              <option value="2">Tecnologia</option>
             </select>
             <RichTextEditor
+              onImageUpload={handleImageUpload}
+              onIma
               placeholder="Conteúdo"
               controls={[
                 [
@@ -51,12 +82,13 @@ const Adicionar = () => {
                 ["h1", "h2", "h3", "h4"],
                 ["alignLeft", "alignCenter", "alignRight"],
               ]}
-              value={value}
-              onChange={setValue}
+              value={content}
+              onChange={setContent}
             />
             <input
               type="file"
               id="file"
+              ref={fotoField}
               onChange={onImageChange}
               style={{ display: "none" }}
             />
@@ -81,7 +113,7 @@ const Adicionar = () => {
               </label>
             </div>
 
-            <button type="submit">Adicionar</button>
+            <button type="submit">Adicionar Produto</button>
           </form>
         </motion.div>
       </C.Content>
@@ -90,3 +122,5 @@ const Adicionar = () => {
 };
 
 export default Adicionar;
+
+//https://www.youtube.com/watch?v=nL2KVcKa5ug&ab_channel=DEV_PIE

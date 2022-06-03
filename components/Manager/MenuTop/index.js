@@ -7,7 +7,10 @@ export const MenuTop = () => {
     <C.Content>
       <div className="user">
         <div className="loggedUser">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_p_TOIEqMsaP4yTN9mJPWCIcZEmOABtDB_gXOCaDuKBw6K-iTbTctOZZSorgNf8J2OoU&usqp=CAU" />
+          <img
+            alt=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_p_TOIEqMsaP4yTN9mJPWCIcZEmOABtDB_gXOCaDuKBw6K-iTbTctOZZSorgNf8J2OoU&usqp=CAU"
+          />
           <span>8poroito</span>
         </div>
         <div className="btnsTop">
