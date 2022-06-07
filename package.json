@@ -25,7 +25,9 @@
     "react-quill": "^1.2.0",
     "react-quilljs": "^1.2.17",
     "sass": "^1.52.1",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "suneditor": "^2.43.8",
+    "suneditor-react": "^3.4.0"
   },
   "devDependencies": {
     "eslint": "8.16.0",

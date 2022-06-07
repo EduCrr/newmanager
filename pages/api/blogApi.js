@@ -45,6 +45,6 @@ export default {
     body.append("file", file);
 
     let { data: json } = await api.post(`/postimage`, body);
-    return json.location;
+    return json;
   },
 };

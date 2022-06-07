@@ -6,14 +6,18 @@ import "quill/dist/quill.snow.css";
 import { motion } from "framer-motion";
 import blogApi from "../../api/blogApi";
 import dynamic from "next/dynamic";
+import "suneditor/dist/css/suneditor.min.css";
 const RichTextEditor = dynamic(import("@mantine/rte"), {
   ssr: false,
   loading: () => null,
 });
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
+});
 
 const Adicionar = () => {
   const [imgFile, setImgFile] = useState();
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("<h1>teste</h1>");
   const [category, setCategory] = useState("1");
   const [title, setTitle] = useState("");
   let fotoField = useRef();
@@ -39,12 +43,66 @@ const Adicionar = () => {
     }
   };
 
-  const handleImageUpload = async (file) => {
-    const json = await blogApi.addText(file);
-    const reader = new FileReader();
-
-    reader.readAsDataURL(json.location);
+  const handleImageUploadBefore = (files, info, uploadHandler) => {
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    const requestOptions = {
+      method: "POST",
+      body: formData,
+    };
+    fetch("http://127.0.0.1:8000/api/postimage", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        let response = {
+          result: [
+            {
+              url: data.location,
+            },
+          ],
+        };
+        uploadHandler(response);
+      });
   };
+
+  const opitons = {
+    mode: "classic",
+    rtl: false,
+    katex: "window.katex",
+    videoFileInput: true,
+    tabDisable: false,
+    buttonList: [
+      [
+        "undo",
+        "redo",
+        "formatBlock",
+        "paragraphStyle",
+        "blockquote",
+        "bold",
+        "underline",
+        "italic",
+        "strike",
+        "fontColor",
+        "hiliteColor",
+        "textStyle",
+        "removeFormat",
+        "outdent",
+        "indent",
+        "align",
+        "list",
+        "lineHeight",
+        "link",
+        "image",
+        "video",
+        "fullScreen",
+        "showBlocks",
+        "codeView",
+        "preview",
+      ],
+    ],
+  };
+  function handleChange(content) {
+    setContent(content);
+  }
 
   return (
     <Default>
@@ -65,26 +123,14 @@ const Adicionar = () => {
               <option value="1">Jogos</option>
               <option value="2">Tecnologia</option>
             </select>
-            <RichTextEditor
-              onImageUpload={handleImageUpload}
-              onIma
-              placeholder="Conteúdo"
-              controls={[
-                [
-                  "bold",
-                  "clean",
-                  "italic",
-                  "underline",
-                  "link",
-                  "image",
-                  "video",
-                ],
-                ["h1", "h2", "h3", "h4"],
-                ["alignLeft", "alignCenter", "alignRight"],
-              ]}
+            <SunEditor
+              setOptions={opitons}
+              onChange={handleChange}
               value={content}
-              onChange={setContent}
+              placeholder="Escreva aqui..."
+              onImageUploadBefore={handleImageUploadBefore}
             />
+
             <input
               type="file"
               id="file"
@@ -123,4 +169,4 @@ const Adicionar = () => {
 
 export default Adicionar;
 
-//https://www.youtube.com/watch?v=nL2KVcKa5ug&ab_channel=DEV_PIE
+//https://github.com/mkhstar/suneditor-react/issues/128

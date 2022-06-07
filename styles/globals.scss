@@ -146,74 +146,34 @@ html ::-webkit-scrollbar-thumb {
     color: var(--color-primary);
   }
 }
-.quill {
-  margin: 1rem 0px;
-  width: 100% !important;
-}
-.editor {
-  height: 300px;
-  margin-bottom: 110px;
-}
-.ql-toolbar.ql-snow,
-.ql-container.ql-snow {
-  border: 0px !important;
-}
-.ql-editor {
-  width: 100% !important;
-}
-.ql-editor .ql-video {
-  height: 250px !important;
-  width: auto !important;
-}
-.ql-snow .ql-tooltip {
-  position: absolute !important;
-  left: 0% !important;
-}
-
-.ql-toolbar.ql-snow .ql-picker-label {
-  margin-top: 12px !important;
-}
-
-svg {
-  color: var(--color-primary);
-}
-
-.mantine-152suqo {
-  margin: 1rem 0px;
-  border-radius: 15px;
-}
-.mantine-9edjvx {
-  border-top-left-radius: 15px !important;
-  border-top-right-radius: 15px !important;
-}
-.mantine-152suqo,
-.mantine-9edjvx,
-.mantine-bdajhj {
-  border: 0px solid var(--color-form-background);
-
-  background-color: var(--color-form-background);
-  color: var(--color-primary);
-}
-
-.quill > .ql-container > .ql-editor.ql-blank::before {
-  color: var(--color-primary) !important;
-  font-size: 14px;
-  font-family: "Montserrat", sans-serif !important;
-}
-
-.mantine-gi9dos {
-  margin: 0px !important;
-}
-
-.ql-toolbar.ql-snow {
-  border-radius: 15px !important;
-}
 
 .globalSpace {
   width: 95%;
   margin: auto;
-  border-radius: 15px;
   background-color: var(--color-form-background);
   color: var(--color-primary);
   padding: 15px;
+}
+
+.sun-editor .se-toolbar {
+  border: 0px !important;
+  outline: 0px !important;
+  background-color: var(--color-form-background) !important;
+  color: var(--color-primary) !important;
+}
+.se-wrapper-inner {
+  font-size: 16px !important;
+  background-color: var(--color-form-background) !important;
+  color: var(--color-primary) !important;
+}
+.sun-editor .se-resizing-bar {
+  background-color: var(--color-form-background) !important;
+  color: var(--color-primary) !important;
+}
+.sun-editor .se-tooltip {
+  background-color: var(--color-form-background) !important;
+  color: var(--color-primary) !important;
+}
+.sun-editor {
+  border: 0px !important;
 }
