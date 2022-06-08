@@ -41,7 +41,13 @@ const PostId = ({ post }) => {
         <title>{item.title}</title>
       </Head>
 
-      <div className="left">
+      <motion.div
+        key="1"
+        initial={{ y: "100%", opacity: 0 }}
+        className="left"
+        animate={{ y: 0, opacity: 1, transition: { duration: 0.7 } }}
+        exit={{ y: "100%", opacity: 0, transition: { duration: 0.7 } }}
+      >
         <h3>{item.title}</h3>
         <section
           className="not-found-controller"
@@ -50,13 +56,14 @@ const PostId = ({ post }) => {
         <Link href="/">
           <button>Back</button>
         </Link>
-      </div>
+      </motion.div>
       <div className="right">
         <motion.img
-          transition={{ delay: 0.3 }}
-          initial={{ y: 300, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ opacity: 0 }}
+          key="2"
+          initial={{ y: "100%", opacity: 0 }}
+          className="left"
+          animate={{ y: 0, opacity: 1, transition: { duration: 0.7 } }}
+          exit={{ y: "-100%", opacity: 0, transition: { duration: 0.7 } }}
           src={item.photos[0].url}
         />
       </div>
