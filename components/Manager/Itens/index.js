@@ -12,7 +12,7 @@ export const Itens = ({ posts }) => {
       </div>
       <div className="container">
         {posts.posts.map((item, k) => (
-          <div className="item">
+          <div className="item" key={k}>
             <div className="globalSpace">
               <div className="active">
                 <button>
