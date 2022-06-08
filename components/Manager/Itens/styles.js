@@ -56,5 +56,19 @@ export const Content = styled.div`
         }
       }
     }
+    .active {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+      button {
+        cursor: pointer;
+        margin-left: 10px;
+        background-color: #39bd29;
+        padding: 5px;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+      }
+    }
   }
 `;

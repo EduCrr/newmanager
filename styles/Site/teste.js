@@ -25,6 +25,9 @@ export const Content = styled.div`
       border: 0;
       border-radius: 15px;
     }
+    img {
+      border-radius: 15px;
+    }
   }
   .right {
     flex: 1;

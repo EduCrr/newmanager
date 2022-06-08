@@ -1,5 +1,5 @@
 import * as C from "./styles";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
 export const Itens = ({ posts }) => {
@@ -14,6 +14,11 @@ export const Itens = ({ posts }) => {
         {posts.posts.map((item, k) => (
           <div className="item">
             <div className="globalSpace">
+              <div className="active">
+                <button>
+                  <FaCheck size={15} />
+                </button>
+              </div>
               <img alt="" src={`${path}/${item.photos[0].url}`} />
               <div className="btnsItem">
                 <p>{item.title}</p>

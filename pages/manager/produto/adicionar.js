@@ -2,15 +2,10 @@ import { Default } from "../../../components/Manager/Default";
 import * as C from "../../../components/Manager/Content/styles";
 import { useState, useEffect, useRef } from "react";
 import { FaFileAlt } from "react-icons/fa";
-import "quill/dist/quill.snow.css";
 import { motion } from "framer-motion";
 import blogApi from "../../api/blogApi";
 import dynamic from "next/dynamic";
 import "suneditor/dist/css/suneditor.min.css";
-const RichTextEditor = dynamic(import("@mantine/rte"), {
-  ssr: false,
-  loading: () => null,
-});
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
@@ -50,7 +45,7 @@ const Adicionar = () => {
       method: "POST",
       body: formData,
     };
-    fetch("http://127.0.0.1:8000/api/postimage", requestOptions)
+    fetch("http://fmcomunicacao.com.br/api/postimage", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         let response = {
