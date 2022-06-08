@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next lint & NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod": "next build && next start"
+    "lint": "next lint"
   },
   "dependencies": {
     "axios": "^0.27.2",

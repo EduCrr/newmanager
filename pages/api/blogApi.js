@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://fmcomunicacao.com.br/api",
+  baseURL: "https://fmcomunicacao.com.br/api",
 });
 
 export default {

@@ -30,7 +30,7 @@ export const Content = () => {
       body: formData,
     };
     setLoading(true);
-    fetch("http://fmcomunicacao.com.br/api/postimage", requestOptions)
+    fetch("https://fmcomunicacao.com.br/api/postimage", requestOptions)
       .then((response) => response.json())
 
       .then((data) => {

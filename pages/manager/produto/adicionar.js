@@ -45,7 +45,7 @@ const Adicionar = () => {
       method: "POST",
       body: formData,
     };
-    fetch("http://fmcomunicacao.com.br/api/postimage", requestOptions)
+    fetch("https://fmcomunicacao.com.br/api/postimage", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         let response = {
