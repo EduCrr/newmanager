@@ -15,7 +15,6 @@ export const Default = ({ children }) => {
       <motion.div initial="initial" animate="animate" exit="exit">
         <main className="globalMainManager">{children}</main>
       </motion.div>
-      <footer className="globalFooterManager">Footer</footer>
     </C.Content>
   );
 };

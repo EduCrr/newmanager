@@ -1,7 +1,6 @@
 import * as C from "./styles";
 import { useState, useEffect } from "react";
 import { FaFileAlt } from "react-icons/fa";
-import blogApi from "../../../pages/api/blogApi";
 import dynamic from "next/dynamic";
 import "suneditor/dist/css/suneditor.min.css";
 const SunEditor = dynamic(() => import("suneditor-react"), {
@@ -61,27 +60,20 @@ export const Content = () => {
         "undo",
         "redo",
         "formatBlock",
-        "paragraphStyle",
         "blockquote",
         "bold",
         "underline",
         "italic",
         "strike",
-        "fontColor",
-        "hiliteColor",
-        "textStyle",
+        "link",
         "removeFormat",
-        "outdent",
-        "indent",
-        "align",
-        "list",
         "lineHeight",
         "fullScreen",
-        "codeView",
         "preview",
       ],
     ],
   };
+
   function handleChange(content) {
     setContent(content);
   }

@@ -4,6 +4,7 @@ import { Itens } from "../../../components/Manager/Itens";
 import { Content } from "../../../components/Manager/Content";
 import { motion } from "framer-motion";
 import blogApi from "../../api/blogApi";
+import dynamic from "next/dynamic";
 
 const Home = ({ posts }) => {
   return (
@@ -21,7 +22,6 @@ export default Home;
 
 export const getServerSideProps = async () => {
   const posts = await blogApi.getPosts();
-
   return {
     props: {
       posts,

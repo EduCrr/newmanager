@@ -8,6 +8,7 @@ body {
 a {
   text-decoration: none;
   color: var(--color-primary);
+  font-size: 14px;
 }
 
 * {
@@ -16,8 +17,7 @@ a {
   margin: 0;
   box-sizing: border-box;
 }
-//17181c
-//202125
+
 :root {
   --color-primary: #202125;
   --color-background: #fafafa;
@@ -90,7 +90,6 @@ html ::-webkit-scrollbar-thumb {
   max-width: 1100px;
   border-radius: 15px;
   margin: 1rem auto;
-  min-height: 80vh;
   background-color: var(--color-content-background);
   background: var(--color-content2-background);
   color: var(--color-primary);
@@ -193,4 +192,16 @@ html ::-webkit-scrollbar-thumb {
 
 .sun-editor .se-loading-box {
   z-index: 0 !important;
+}
+.loginContent {
+  background-color: var(--color-form-background) !important;
+  color: var(--color-primary) !important;
+}
+.loginContent input {
+  background-color: var(--color-content-background);
+}
+.containerCategorys,
+.contentImgs {
+  background-color: var(--color-form-background);
+  color: var(--color-primary);
 }

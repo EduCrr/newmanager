@@ -43,7 +43,7 @@ const PostId = ({ post }) => {
 
       <motion.div
         key="1"
-        initial={{ y: "100%", opacity: 0 }}
+        initial={{ y: "-100%", opacity: 0 }}
         className="left"
         animate={{ y: 0, opacity: 1, transition: { duration: 0.7 } }}
         exit={{ y: "100%", opacity: 0, transition: { duration: 0.7 } }}

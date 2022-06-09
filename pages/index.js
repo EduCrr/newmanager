@@ -71,6 +71,6 @@ export const getStaticProps = async () => {
       posts,
       categories,
     },
-    revalidate: 300, //quando passa 2 horas e tem novo post ele faz a requesição
+    revalidate: 300,
   };
 };
