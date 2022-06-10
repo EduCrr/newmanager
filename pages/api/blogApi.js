@@ -26,12 +26,12 @@ export default {
   },
 
   getSearch: async (q) => {
-    let { data: json } = await api.get(`/api/search?q=${q}`);
+    let { data: json } = await api.get(`/search?q=${q}`);
     return json;
   },
 
   getSingleCategory: async (cat) => {
-    let { data: json } = await api.get(`/api/categorie/${cat}`);
+    let { data: json } = await api.get(`/categorie/${cat}`);
     return json;
   },
 
@@ -51,7 +51,7 @@ export default {
   },
 
   updateTitle: async (title, content, category, id, token) => {
-    let { data: json } = await api.put(`/api/post/${id}`, {
+    let { data: json } = await api.put(`/post/${id}`, {
       title,
       content,
       category,
@@ -60,11 +60,11 @@ export default {
   },
 
   deleteImage: async (id, token) => {
-    let { data: json } = await api.delete(`/api/post/images/${id}`);
+    let { data: json } = await api.delete(`/post/images/${id}`);
     return json;
   },
 
-  updateImage: async (fotoField, token, id) => {
+  updateImage: async (fotoField, id) => {
     let body = new FormData();
 
     if (fotoField.current.files.length > 0) {
@@ -73,7 +73,7 @@ export default {
       }
     }
 
-    let { data: json } = await api.post(`/api/post/images/${id}`, body);
+    let { data: json } = await api.post(`/post/images/${id}`, body);
     return json;
   },
 

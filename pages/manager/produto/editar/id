@@ -20,6 +20,8 @@ const Editar = ({ post }) => {
   const [title, setTitle] = useState("");
   const [activeCategory, setActiveCategory] = useState(post.post.category.id);
   let id = post.post.id;
+  console.log(produto);
+
   let path = post.path;
   const router = useRouter();
 
@@ -114,14 +116,12 @@ const Editar = ({ post }) => {
 
   const handlePhotos = async (e) => {
     e.preventDefault();
+
     let json = await blogApi.updateImage(fotoField, id);
     if (json.error !== "") {
       alert("erro");
     } else {
-      console.log("foi");
-      setTimeout(function () {
-        router.reload(window.location.pathname);
-      }, 2000);
+      alert("add com sucesso!");
     }
   };
 
