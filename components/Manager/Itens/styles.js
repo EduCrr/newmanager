@@ -2,9 +2,25 @@ import styled from "styled-components";
 
 export const Content = styled.div`
   padding: 20px;
+
   .add {
     display: flex;
     justify-content: flex-end;
+
+    button {
+      cursor: pointer;
+      background-color: #dc9763;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 5px;
+      color: white;
+    }
+  }
+  .addSlides {
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     button {
       cursor: pointer;
       background-color: #dc9763;
@@ -55,6 +71,23 @@ export const Content = styled.div`
           color: white;
         }
       }
+      .slide {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+        button {
+          cursor: pointer;
+          background-color: #dc9763;
+          padding: 5px;
+          border: 0;
+          border-radius: 5px;
+          color: white;
+        }
+      }
+
+      .files {
+        opacity: 0.5 !important;
+      }
     }
     .active {
       display: flex;
@@ -68,6 +101,35 @@ export const Content = styled.div`
         border: 0;
         border-radius: 5px;
         color: white;
+      }
+    }
+  }
+  .mediaTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 30px;
+
+    .btnsGallery {
+      display: flex;
+      align-items: center;
+      .categoryLibrary {
+        margin-right: 20px;
+
+        button {
+          cursor: pointer;
+          background-color: transparent;
+          border: 0;
+          outline: 0;
+          padding: 0px 10px;
+        }
+        .active {
+          background-color: #dc9763;
+          color: white;
+          padding: 10px;
+          border-radius: 8px;
+        }
       }
     }
   }

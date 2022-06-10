@@ -17,19 +17,11 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .bt {
-      margin-right: 10px;
-      cursor: pointer;
-      background-color: #dc9763;
-      padding: 10px 20px;
-      border: 0;
-      border-radius: 5px;
-      color: white;
-    }
   }
   .containerImgs {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
   }
   .contentImgs {
     width: 25%;

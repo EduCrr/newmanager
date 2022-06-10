@@ -23,6 +23,20 @@ export const MenuLeft = () => {
                 <a>Home</a>
               </div>
             </Link>
+          </li>
+          <li>
+            <Link scroll={false} href="/manager/slide">
+              <div
+                className={
+                  router.pathname === "/manager/slide" ? "menu active " : "menu"
+                }
+              >
+                <FaHome />
+                <a>Slides</a>
+              </div>
+            </Link>
+          </li>
+          <li>
             <Link scroll={false} href="/manager/categorias">
               <div
                 className={
@@ -35,16 +49,18 @@ export const MenuLeft = () => {
                 <a>Categorias</a>
               </div>
             </Link>
-            <Link scroll={false} href="/manager/produto/adicionar">
+          </li>
+          <li>
+            <Link scroll={false} href="/manager/produto">
               <div
                 className={
-                  router.pathname === "/manager/produtos"
+                  router.pathname === "/manager/produto"
                     ? "menu active "
                     : "menu"
                 }
               >
                 <FaDiceD6 />
-                <a>Produto</a>
+                <a>Produtos</a>
               </div>
             </Link>
           </li>
