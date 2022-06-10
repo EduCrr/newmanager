@@ -19,7 +19,7 @@ const Login = () => {
             <span> Desenvolvido por:</span>
             <Link href="produto/adicionar">
               <a>
-                <img src="/8poroito.png" />
+                <img alt="" src="/8poroito.png" />
               </a>
             </Link>
           </div>

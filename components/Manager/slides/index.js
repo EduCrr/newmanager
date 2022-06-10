@@ -54,6 +54,7 @@ export const Slides = () => {
           {imgFile !== "" &&
             imgFile.map((item, k) => (
               <div
+                key={k}
                 className="item"
                 style={{ opacity: "0.3", pointerEvents: "none" }}
               >
