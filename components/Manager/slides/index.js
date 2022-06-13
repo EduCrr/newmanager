@@ -2,17 +2,25 @@ import * as C from "../Itens/styles";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 export const Slides = () => {
   const [imgFile, setImgFile] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const onImageChange = (e) => {
     const imgs = e.target.files;
-    setImgFile([]);
     if (imgs) {
+      setLoading(true);
+      setImgFile([]);
       for (let files of imgs) {
         setImgFile((oldArray) => [...oldArray, URL.createObjectURL(files)]);
       }
       console.log(imgFile);
+      setLoading(false);
+      setTimeout(function () {
+        router.reload(window.location.pathname);
+      }, 500);
     } else {
       setImgFile();
     }
@@ -20,6 +28,7 @@ export const Slides = () => {
   return (
     <C.Content>
       <form>
+        {loading ? "carragando" : ""}
         <div className="addSlides">
           <h2>Slides</h2>
           <input
@@ -53,11 +62,7 @@ export const Slides = () => {
           </div>
           {imgFile !== "" &&
             imgFile.map((item, k) => (
-              <div
-                key={k}
-                className="item"
-                style={{ opacity: "0.3", pointerEvents: "none" }}
-              >
+              <div key={k} className="item" style={{ pointerEvents: "none" }}>
                 <div className="globalSpace">
                   <img alt="" src={item} />
                   <div className="slide">

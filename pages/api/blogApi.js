@@ -5,23 +5,18 @@ const api = axios.create({
 });
 
 export default {
+  getUser: async () => {
+    let { data: json } = await api.get(`/user`);
+    return json;
+  },
+
   getPosts: async () => {
     let { data: json } = await api.get(`/posts`);
     return json;
   },
 
   getSinglePost: async (id) => {
-    let { data: json } = await api.get(`post/${id}`);
-    return json;
-  },
-
-  getCategories: async () => {
-    let { data: json } = await api.get(`categories`);
-    return json;
-  },
-
-  getSingleCategory: async (cat) => {
-    let { data: json } = await api.get(`categorie/${cat}`);
+    let { data: json } = await api.get(`/post/${id}`);
     return json;
   },
 
@@ -30,8 +25,73 @@ export default {
     return json;
   },
 
+  getCategories: async () => {
+    let { data: json } = await api.get(`/categories`);
+    return json;
+  },
+
   getSingleCategory: async (cat) => {
     let { data: json } = await api.get(`/categorie/${cat}`);
+    return json;
+  },
+
+  createUser: async (name, password, email) => {
+    let { data: json } = await api.post(`/user`, {
+      name,
+      password,
+      email,
+    });
+    return json;
+  },
+
+  createCat: async (name) => {
+    let { data: json } = await api.post(`/categories`, {
+      name,
+    });
+    return json;
+  },
+
+  loginUser: async (password, email) => {
+    let { data: json } = await api.post(`/auth/login`, {
+      password,
+      email,
+    });
+    return json;
+  },
+
+  updateUserName: async (name) => {
+    let { data: json } = await api.put(`/user`, {
+      name,
+    });
+    return json;
+  },
+  updateUserEmail: async (email) => {
+    let { data: json } = await api.put(`/user`, {
+      email,
+    });
+    return json;
+  },
+
+  updateUserPassword: async (password, password_confirm) => {
+    let { data: json } = await api.put(`/user`, {
+      password,
+      password_confirm,
+    });
+    return json;
+  },
+
+  updateAvatar: async (avatar) => {
+    let body = new FormData();
+    if (avatar) {
+      body.append("avatar", avatar);
+    }
+    let { data: json } = await api.post(`/user/avatar`, body);
+    return json;
+  },
+
+  getMyPosts: async () => {
+    let { data: json } = await api.get(`/myposts`);
+
     return json;
   },
 
@@ -46,11 +106,17 @@ export default {
         body.append("images[]", fotoField.current.files[i]);
       }
     }
+
     let { data: json } = await api.post(`/posts`, body);
     return json;
   },
 
-  updateTitle: async (title, content, category, id, token) => {
+  deletePost: async (id) => {
+    let { data: json } = await api.delete(`/post/${id}`);
+    return json;
+  },
+
+  updateTitle: async (title, content, category, id) => {
     let { data: json } = await api.put(`/post/${id}`, {
       title,
       content,
@@ -59,7 +125,7 @@ export default {
     return json;
   },
 
-  deleteImage: async (id, token) => {
+  deleteImage: async (id) => {
     let { data: json } = await api.delete(`/post/images/${id}`);
     return json;
   },
@@ -77,6 +143,32 @@ export default {
     return json;
   },
 
+  getFavorites: async () => {
+    let { data: json } = await api.get(`/user/favorites`);
+    return json;
+  },
+
+  toogleFavorite: async (id) => {
+    let { data: json } = await api.post(`/user/favorite`, {
+      id,
+    });
+    return json;
+  },
+
+  sendEmail: async (email, name, fotoField) => {
+    let body = new FormData();
+    body.append("email", email);
+    body.append("name", name);
+
+    if (fotoField.current.files.length > 0) {
+      for (let i = 0; i < fotoField.current.files.length; i++) {
+        body.append("att[]", fotoField.current.files[i]);
+      }
+    }
+
+    let { data: json } = await api.post(`/teste`, body);
+    return json;
+  },
   addText: async (file) => {
     let body = new FormData();
     body.append("file", file);

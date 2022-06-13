@@ -17,6 +17,7 @@ const Editar = ({ post }) => {
   const [content, setContent] = useState("");
   const [categorys, setCategorys] = useState([]);
   const [produto, setProduto] = useState(post.post);
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [activeCategory, setActiveCategory] = useState(post.post.category.id);
   let id = post.post.id;
@@ -114,14 +115,16 @@ const Editar = ({ post }) => {
 
   const handlePhotos = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let json = await blogApi.updateImage(fotoField, id);
     if (json.error !== "") {
       alert("erro");
     } else {
       console.log("foi");
+      setLoading(false);
       setTimeout(function () {
         router.reload(window.location.pathname);
-      }, 2000);
+      }, 500);
     }
   };
 
@@ -171,6 +174,7 @@ const Editar = ({ post }) => {
                 </div>
               </label>
             </div>
+            {loading === true ? "Carregando" : ""}
             <div className="containerImgs">
               {produto.photos.map((item, k) => (
                 <div className="contentImgs" key={k}>
@@ -190,7 +194,7 @@ const Editar = ({ post }) => {
                   <div
                     className="contentImgs"
                     key={k}
-                    style={{ opacity: "0.3", pointerEvents: "none" }}
+                    style={{ pointerEvents: "none" }}
                   >
                     <div className="photo">
                       <img alt="" src={item} />
