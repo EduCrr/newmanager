@@ -10,8 +10,8 @@ export default {
     return json;
   },
 
-  getPosts: async () => {
-    let { data: json } = await api.get(`/posts`);
+  getPosts: async (offset = 0) => {
+    let { data: json } = await api.get(`/posts?offset=${offset}`);
     return json;
   },
 

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import blogApi from "../../api/blogApi";
 import dynamic from "next/dynamic";
 
-const Home = ({ posts }) => {
+const Home = ({ posts, page }) => {
   return (
     <Default>
       <motion.div initial="hidden" animate="enter" exit="exit">

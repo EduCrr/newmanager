@@ -3,23 +3,13 @@ import { FaEdit, FaTrash, FaCheck, FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-export const Itens = ({ posts }) => {
+export const Itens = ({ posts, page }) => {
+  const [cat, setCat] = useState("");
   console.log(posts);
   let path = posts.path;
-
-  const [listCategories, setListCategories] = useState([
-    { name: "Todos", active: true, slug: "todos" },
-    { name: "Jogos", active: false, slug: "jogos" },
-    { name: "Tecnologia", active: false, slug: "tecnologia" },
-  ]);
-
-  const handleCategory = (slug, k) => {
-    setListCategories((prevItems) =>
-      prevItems.map((e, i) => ({ ...e, active: i === k }))
-    );
-  };
-
+  const { pathname } = useRouter();
   return (
     <C.Content>
       <motion.div
@@ -31,15 +21,13 @@ export const Itens = ({ posts }) => {
         <div className="title">Produtos</div>
         <div className="btnsGallery">
           <div className="categoryLibrary">
-            {listCategories.map((item, k) => (
-              <button
-                onClick={() => handleCategory(item.slug, k)}
-                className={item.active ? "active" : ""}
-                key={k}
-              >
-                {item.name}
-              </button>
-            ))}
+            <form className="globalForm">
+              <select value={cat} onChange={(e) => setCat(e.target.value)}>
+                <option value="">Todos</option>
+                <option value="jogos">Jogos</option>
+                <option value="tecnologia">Tecnologia</option>
+              </select>
+            </form>
           </div>
           <form className="globalSearchInput">
             <input placeholder="Procurar" />
@@ -54,35 +42,72 @@ export const Itens = ({ posts }) => {
           <button>Adicionar</button>
         </Link>
       </div>
-      <div className="container">
-        {posts.posts.map((item, k) => (
-          <div className="item" key={k}>
-            <div className="globalSpace">
-              <div className="active">
-                <button>
-                  <FaCheck size={15} />
-                </button>
-              </div>
-              <img alt="" src={`${path}/${item.photos[0].url}`} />
-              <div className="btnsItem">
-                <p>{item.title}</p>
-                <div>
-                  <Link href={`/manager/produto/editar/${item.id}`}>
-                    <a>
+      {cat === "" && (
+        <>
+          <div className="container">
+            {posts.posts.map((item, k) => (
+              <div className="item" key={k}>
+                <div className="globalSpace">
+                  <div className="active">
+                    <button>
+                      <FaCheck size={15} />
+                    </button>
+                  </div>
+                  <img alt="" src={`${path}/${item.photos[0].url}`} />
+                  <div className="btnsItem">
+                    <p>{item.title}</p>
+                    <div>
+                      <Link href={`/manager/produto/editar/${item.id}`}>
+                        <a>
+                          <button>
+                            <FaEdit size={15} />
+                          </button>
+                        </a>
+                      </Link>
                       <button>
-                        <FaEdit size={15} />
+                        <FaTrash size={15} />
                       </button>
-                    </a>
-                  </Link>
-                  <button>
-                    <FaTrash size={15} />
-                  </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
+      {cat !== "" && (
+        <div className="container">
+          {posts.posts
+            .filter((item) => item.category.slug === cat)
+            .map((item, k) => (
+              <div className="item" key={k}>
+                <div className="globalSpace">
+                  <div className="active">
+                    <button>
+                      <FaCheck size={15} />
+                    </button>
+                  </div>
+                  <img alt="" src={`${path}/${item.photos[0].url}`} />
+                  <div className="btnsItem">
+                    <p>{item.title}</p>
+                    <div>
+                      <Link href={`/manager/produto/editar/${item.id}`}>
+                        <a>
+                          <button>
+                            <FaEdit size={15} />
+                          </button>
+                        </a>
+                      </Link>
+                      <button>
+                        <FaTrash size={15} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
+      )}
     </C.Content>
   );
 };
