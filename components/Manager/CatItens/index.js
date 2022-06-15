@@ -3,22 +3,32 @@ import * as C from "./styles";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import blogApi from "../../../pages/api/blogApi";
+import { Modal } from "../Modal";
+import { AnimatePresence } from "framer-motion";
 
 export const CatItens = () => {
   const [cats, setCats] = useState([]);
-  useEffect(() => {
-    const getCat = async () => {
-      let json = await blogApi.getCategories();
-      if (json.error === "") {
-        console.log(json);
-        setCats(json.categories);
-      } else {
-        alert("sem categorias");
-      }
-    };
+  const [modal, setModal] = useState(false);
+  const [idCat, setIdCat] = useState(null);
 
+  const getCat = async () => {
+    let json = await blogApi.getCategories();
+    if (json.error === "") {
+      console.log(json);
+      setCats(json.categories);
+    } else {
+      alert("sem categorias");
+    }
+  };
+
+  useEffect(() => {
     getCat();
   }, []);
+
+  const handleDelete = async (id) => {
+    setModal(!modal);
+    setIdCat(id);
+  };
 
   return (
     <C.Content>
@@ -36,12 +46,15 @@ export const CatItens = () => {
             <button>
               <FaEdit />
             </button>
-            <button>
+            <button onClick={() => handleDelete(item.id)}>
               <FaTrash />
             </button>
           </div>
         </div>
       ))}
+      <AnimatePresence exitBeforeEnter>
+        {modal && <Modal setModal={setModal} id={idCat} type="category" />}
+      </AnimatePresence>
     </C.Content>
   );
 };

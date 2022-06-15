@@ -8,6 +8,9 @@ import dynamic from "next/dynamic";
 import "suneditor/dist/css/suneditor.min.css";
 import { FaTrash } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { AnimatePresence } from "framer-motion";
+import { Modal } from "../../../../components/Manager/Modal";
+
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
@@ -18,10 +21,11 @@ const Editar = ({ post }) => {
   const [categorys, setCategorys] = useState([]);
   const [produto, setProduto] = useState(post.post);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
+  const [idImgDel, setIdImgDel] = useState(null);
   const [activeCategory, setActiveCategory] = useState(post.post.category.id);
   let id = post.post.id;
-  let path = post.path;
   const router = useRouter();
 
   const onImageChange = (e) => {
@@ -119,13 +123,20 @@ const Editar = ({ post }) => {
     let json = await blogApi.updateImage(fotoField, id);
     if (json.error !== "") {
       alert("erro");
+      setImgFile([]);
+      setLoading(false);
     } else {
       console.log("foi");
       setLoading(false);
       setTimeout(function () {
         router.reload(window.location.pathname);
-      }, 500);
+      }, 300);
     }
+  };
+
+  const handleDeleteImg = async (id) => {
+    setModal(!modal);
+    setIdImgDel(id);
   };
 
   return (
@@ -174,6 +185,7 @@ const Editar = ({ post }) => {
                 </div>
               </label>
             </div>
+
             {loading === true ? "Carregando" : ""}
             <div className="containerImgs">
               {produto.photos.map((item, k) => (
@@ -182,13 +194,15 @@ const Editar = ({ post }) => {
                     <img alt="" src={`${item.url}`} />
                   </div>
                   <div className="btns">
-                    <button>
-                      <FaTrash />
-                    </button>
+                    <div
+                      className="delPhoto"
+                      onClick={() => handleDeleteImg(item.id)}
+                    >
+                      <FaTrash size={14} />
+                    </div>
                   </div>
                 </div>
               ))}
-
               {imgFile !== "" &&
                 imgFile.map((item, k) => (
                   <div
@@ -220,28 +234,18 @@ const Editar = ({ post }) => {
               </button>
             </div>
           </form>
+          <AnimatePresence exitBeforeEnter>
+            {modal && <Modal setModal={setModal} id={idImgDel} type="images" />}
+          </AnimatePresence>
         </motion.div>
       </C.Content>
     </Default>
   );
 };
 
-export const getStaticPaths = async () => {
-  const posts = await blogApi.getPosts();
-
-  let paths = posts.posts.map((post) => ({
-    params: {
-      id: post.id.toString(),
-    },
-  }));
-
-  return { paths, fallback: "blocking" };
-};
-
-export const getStaticProps = async (context) => {
-  const { id } = context.params;
-
-  let post = await blogApi.getSinglePost(id);
+export const getServerSideProps = async ({ query }) => {
+  const id = query.id;
+  const post = await blogApi.getSinglePost(id);
   return {
     props: {
       post,

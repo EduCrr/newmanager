@@ -169,6 +169,12 @@ export default {
     let { data: json } = await api.post(`/teste`, body);
     return json;
   },
+
+  deleteCat: async (id) => {
+    let { data: json } = await api.delete(`/categorie/delete/${id}`);
+    return json;
+  },
+
   addText: async (file) => {
     let body = new FormData();
     body.append("file", file);

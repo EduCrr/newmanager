@@ -20,11 +20,11 @@ export const Content = styled.div`
   }
   .containerImgs {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
+    gap: 25px;
   }
   .contentImgs {
-    width: 25%;
+    width: 23%;
     border-radius: 15px;
     padding: 15px;
     margin: 2rem 0px;
@@ -47,6 +47,16 @@ export const Content = styled.div`
         cursor: pointer;
         background-color: #dc9763;
         padding: 5px;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        margin-bottom: 0px !important;
+      }
+      div {
+        width: auto;
+        cursor: pointer;
+        background-color: #dc9763;
+        padding: 4px;
         border: 0;
         border-radius: 5px;
         color: white;

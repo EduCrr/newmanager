@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 const Adicionar = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
+
   const handleForm = async (e) => {
     e.preventDefault();
     if (title !== "") {
